@@ -1,0 +1,115 @@
+/* src/components/TrustSection.css */
+
+/* --- Color Variables for Consistency --- */
+:root {
+    --primary-teal: #20a0a0;
+    --light-teal: #30c0c0;
+    --gold: #FFD700;
+    --text-white: #ffffff;
+    --text-light-gray: rgba(255, 255, 255, 0.8);
+}
+.container{
+    padding:0px;
+}
+.trust-section-container {
+    /* Mimics the gradient background from the image */
+    background: linear-gradient(135deg, var(--primary-teal) 0%, var(--light-teal) 100%);
+    color: var(--text-white);
+    padding: 40px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); /* Adds depth */
+   
+}
+.content{
+     background-color: rgba(255, 255, 255, 0.15); 
+    border-radius: 10px;
+    padding: 10px;
+    backdrop-filter: blur(5px);
+}
+
+/* --- Header and Rating Styles --- */
+.trust-section-header {
+    font-size: 2.5em;
+    font-weight: 700;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.trust-section-rating-box {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.trust-section-rating {
+    font-size: 3.5em;
+    font-weight: 900;
+    margin-right: 15px;
+}
+
+.trust-section-customer-count {
+    font-size: 1.1em;
+    color: var(--text-light-gray);
+    margin-top: 5px;
+}
+
+/* --- Profile Grid Styles --- */
+.trust-section-profile-grid {
+     display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 per row */
+  gap: 15px;  /* spacing */
+}
+.trust-section-profile-grid img {
+  width: 80%;
+  height: 140px;
+  object-fit: cover;  
+  border-radius: 10px; 
+ margin:10px;
+}
+
+.trust-section-profile-card {
+    display: flex;
+    align-items: center;
+    /* Semi-transparent background for a frosted effect */
+    background-color: rgba(255, 255, 255, 0.15); 
+    border-radius: 10px;
+    padding: 10px;
+    backdrop-filter: blur(5px); /* Optional: Adds a blur effect */
+}
+
+.trust-section-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #f0f0f0; /* Light background for visibility */
+    margin-right: 10px;
+    /* Placeholder for actual image: */
+    /* background-image: url('path/to/avatar.jpg'); */
+    /* background-size: cover; */
+}
+
+.trust-section-profile-name {
+    font-size: 0.9em;
+    font-weight: 600;
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+    .trust-section-container {
+        padding: 30px 20px;
+    }
+    .trust-section-header {
+        font-size: 1.8em;
+    }
+    .trust-section-profile-grid {
+        grid-template-columns: repeat(2, 1fr); /* Switch to 2 columns on mobile */
+    }
+    .trust-section-rating-box {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .trust-section-rating {
+        font-size: 2.5em;
+        margin-bottom: 5px;
+    }
+}

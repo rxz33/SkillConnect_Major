@@ -1,0 +1,43 @@
+.item {
+  width: 230px;
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.08);
+  transition: 0.3s ease;
+  cursor: pointer;
+  text-align: center;
+}
+
+.item:hover {
+  transform: translateY(-5px);
+}
+
+/* Profile Image */
+.item img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 5px solid #06b5b2;   /* teal border like screenshot */
+  object-fit: cover;
+  margin-bottom: 12px;
+}
+.service{
+    color:grey;
+}
+
+/* Name */
+.item p {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 5px 0;
+  color: #333;
+}
+
+/* Rating Section */
+.item-rating {
+  margin-top: 5px;
+  color: #f4b400; /* star yellow */
+  font-size: 16px;
+  font-weight: 600;
+}

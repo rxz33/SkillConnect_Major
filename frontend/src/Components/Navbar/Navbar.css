@@ -1,0 +1,237 @@
+.navbar{
+    display:flex;
+    flex-wrap: wrap;
+   box-shadow:0 1px 3px -2px black;
+    justify-content:space-around;
+    align-items:center;
+    position:sticky;
+    top:0;
+     z-index: 999;
+  background-color: white;
+  padding:5px 0 !important;
+}
+.nav-logo{
+    display:flex;
+    align-items:center;
+    gap:1px;
+}
+.nav-logo p{
+    color:black;
+    font-size:38px;
+    font-weight:600;
+}
+
+.nav-login-signup{
+    display:flex;
+    align-items: center;
+    justify-content:center;
+    gap:45px;
+}
+.nav-login-signup button{
+    width:157px;
+    height:58px;
+    outline:none;
+    border:1px solid #7a7a7a;
+    border-radius:75px;
+    color:#515151;
+    font-size:20px;
+    font-weight:500;
+    background:white;
+    cursor:pointer;
+}
+.custom-btn {
+  background-color:#20a0a0 !important;   /* Your color */
+  border-color:#20a0a0 !important;
+  color: white !important;
+}
+.nav-login-signup button:active{
+    background:#f3f3f3;
+    
+}
+.account-btn{
+  cursor:pointer;
+}
+
+.profile-icon {
+  font-size: 32px;
+  cursor: pointer;
+  margin-left: 15px;
+}
+
+/* Sidebar container */
+.profile-sidebar {
+  position: absolute;
+  top: 70px;  
+  right: 20px;
+  width: 260px;
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+  z-index: 999;
+}
+
+/* Header user section */
+.profile-header {
+  text-align: center;
+}
+
+.profile-avatar {
+  font-size: 55px;
+  color: #444;
+}
+
+.profile-header h4 {
+  margin: 5px 0 0 0;
+  font-weight: bold;
+}
+
+.profile-header p {
+  margin: 0;
+  font-size: 13px;
+  color: #777;
+}
+
+/* Menu items */
+.profile-menu {
+  margin-top: 10px;
+}
+
+.profile-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 5px;
+  cursor: pointer;
+  color: #222;
+  text-decoration: none;
+  border-radius: 6px;
+}
+
+.profile-item:hover {
+  background: #f2f2f2;
+}
+
+.profile-item span {
+  font-size: 22px;
+}
+
+.logout {
+  color: red;
+}
+
+@media (max-width:1280px){
+  .navbar {
+    padding: 12px 50px;
+  }
+
+  .nav-logo img {
+    width: 40px;
+  }
+
+  .nav-logo p {
+    font-size: 25px;
+  }
+
+
+  .nav-login-cart {
+    gap: 30px;
+  }
+  .nav-login-cart button {
+  width: 120px;
+  height: 45px;
+  font-size: 16px;
+}
+
+.nav-cart-count {
+  margin-left: -40px;
+  font-size: 12px;
+}
+
+}
+@media (max-width:1024px){
+  .navbar {
+    padding: 12px 30px;
+  }
+
+ 
+  .nav-login-cart button {
+    width: 80px;
+    height: 35px;
+    font-size: 14px;
+  }
+
+  .nav-login-cart img {
+    width: 30px;
+  }
+
+  .nav-cart-count {
+    width: 18px;
+    height: 18px;
+  }
+}
+.location-wrapper {
+  position: relative;
+  width: 300px;    /* you can change this */
+}
+
+.location-icon {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  font-size: 20px;
+  color: #444;
+}
+
+.input-btn {
+  padding-left: 40px !important; /* Leaves space for icon */
+  border-radius: 10px;
+  height: 40px;
+}
+
+
+
+
+/* Sidebar Styles */
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: -260px;
+  width: 260px;
+  height: 100vh;
+  background: white;
+  box-shadow: -2px 0 10px rgba(0,0,0,0.2);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  transition: 0.3s ease-in-out;
+  z-index: 2000;
+}
+
+.sidebar.open {
+  right: 0;
+}
+
+.sidebar a,
+.sidebar p {
+  font-size: 18px;
+  cursor: pointer;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.close-sidebar {
+  align-self: flex-end;
+  border: none;
+  font-size: 22px;
+  background: none;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.logout-btn {
+  color: red;
+  cursor: pointer;
+}

@@ -1,0 +1,76 @@
+/* Placeholder for key styles */
+.footer {
+    background-color: #f4f7f6; /* Light grey background */
+    color: #666;
+    padding: 60px 0 0; 
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.footer-col {
+    width: 22%;
+    min-width: 200px;
+}
+
+.logo-text {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #333;
+}
+
+.footer h4 {
+    color: #333;
+    font-size: 1.1em;
+    margin-bottom: 20px;
+}
+
+.footer a {
+    color: #666;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer a:hover {
+    color: #00A69D; /* Primary brand color */
+}
+
+/* App and Social Links (Styling to simulate the look) */
+.app-badge, .social-icon {
+    /* Styles needed to make the placeholders look like the image */
+    display: inline-block;
+    padding: 8px;
+    border-radius: 5px;
+    background: #333;
+    color: white;
+    margin-right: 5px;
+    margin-top: 10px;
+    font-size: 0.8em;
+}
+
+.social-links a .social-icon {
+    background: white;
+    color: #00A69D;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Bottom Bar */
+.footer-bottom {
+    background-color: #e5e9e8;
+    padding: 20px 20px;
+    font-size: 0.9em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    border-top: 1px solid #ddd;
+}

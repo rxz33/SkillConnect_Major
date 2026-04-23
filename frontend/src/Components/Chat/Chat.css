@@ -1,0 +1,102 @@
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 90vh;
+  max-width: 800px;
+  margin: auto;
+  background: #efeae2; /* WhatsApp bg */
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* ================= HEADER ================= */
+.chat-header {
+  background: #075e54;
+  color: white;
+  padding: 12px 16px;
+  font-size: 16px;
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+/* ================= TYPING ================= */
+.chat-container > p {
+  margin: 4px 16px;
+  font-size: 12px;
+  color: #555;
+}
+
+/* ================= MESSAGES ================= */
+.chat-messages {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Message bubble */
+.message {
+  max-width: 70%;
+  padding: 10px 14px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  border-radius: 8px;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+/* Sent message */
+.sent {
+  align-self: flex-end;
+  background: #dcf8c6;
+  border-top-right-radius: 0;
+}
+
+/* Received message */
+.received {
+  align-self: flex-start;
+  background: white;
+  border-top-left-radius: 0;
+}
+
+/* Seen / Delivered */
+.message div {
+  margin-top: 4px;
+  text-align: right;
+}
+
+/* ================= INPUT ================= */
+.chat-input {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background: #f0f0f0;
+  position: sticky;
+  bottom: 0;
+}
+
+.chat-input input {
+  flex: 1;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 20px;
+  outline: none;
+  font-size: 14px;
+}
+
+.chat-input button {
+  margin-left: 10px;
+  background: #075e54;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.chat-input button:hover {
+  background: #064c45;
+}

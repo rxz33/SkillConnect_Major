@@ -1,0 +1,223 @@
+/* --- Global & Container Styles --- */
+.profile-page-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 10px;
+    font-family: Arial, sans-serif;
+}
+
+.profile-card-display {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 30px;
+}
+
+/* --- 1. TOP HEADER SECTION (Horizontal: Image + Info) --- */
+.profiledisplay-header {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.profiledisplay-left {
+    flex-shrink: 0;
+}
+
+.profiledisplay-main-img {
+    width: 200px;
+    height: 200px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.profiledisplay-right {
+    flex-grow: 1;
+}
+
+.profiledisplay-right h1 {
+    font-size: 32px;
+    color: #333;
+    margin: 0 0 5px 0;
+}
+
+/* Rating */
+.profiledisplay-right-star {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.star-icon {
+    font-size: 20px;
+    color: #e53935; /* Red for full stars */
+    margin-right: 2px;
+}
+
+.star-dull-icon {
+    font-size: 20px;
+    color: #ccc; /* Grey for dull stars */
+    margin-right: 2px;
+}
+
+.profiledisplay-right-star p {
+    font-size: 16px;
+    color: #555;
+    margin: 0 0 0 5px;
+}
+
+/* Location */
+.profiledisplay-location {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+
+.location-icon {
+    color: #333;
+    font-size: 18px;
+}
+
+
+.book-service-btn {
+    background-color:#20a0a0; /* Teal */
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 6px;
+    font-size: 17px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    margin:10px;
+}
+
+.book-service-btn:hover {
+    background-color: #0097a7;
+}
+
+/* --- 2. DETAILS CONTENT SECTION (Two Columns) --- */
+.profiledisplay-details-content {
+    display: grid;
+    grid-template-columns: 3fr 2fr; /* Roughly 60/40 split for columns */
+    gap: 40px;
+    padding-top: 10px;
+}
+
+/* Titles */
+.section-title-teal {
+    font-size: 18px;
+    color:#20a0a0; /* Teal for About Me/Skills */
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.section-title-black {
+    font-size: 18px;
+    color: #333; /* Darker for Category */
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+/* About Me */
+.about-me-section p {
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 25px;
+}
+
+/* Experience & Certification Boxes */
+.info-boxes-grid {
+    display: flex;
+    gap: 20px;
+}
+
+.info-box {
+    flex: 1;
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #fafafa;
+    text-align: center;
+}
+
+.box-icon {
+    font-size: 30px;
+    color:#20a0a0;
+    margin-bottom: 10px;
+}
+
+.box-title {
+    margin: 0;
+    font-size: 14px;
+    color: #555;
+}
+
+.box-value {
+    margin: 5px 0 0 0;
+    font-weight: 600;
+    color: #333;
+    line-height: 1.3;
+}
+
+/* Skills */
+.skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 30px;
+}
+
+.skill-tag {
+    background-color: #e0f7fa; /* Light teal */
+    color:#20a0a0;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Category & Tags */
+.tags-list {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #555;
+}
+
+.tags-list span {
+    font-weight: bold;
+    color: #333;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 768px) {
+    .profiledisplay-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .profiledisplay-right {
+        text-align: center;
+    }
+
+    .profiledisplay-right-star, .profiledisplay-location {
+        justify-content: center;
+    }
+
+    .profiledisplay-details-content {
+        grid-template-columns: 1fr; /* Stack columns vertically */
+    }
+
+    .info-boxes-grid {
+        flex-direction: column;
+    }
+}

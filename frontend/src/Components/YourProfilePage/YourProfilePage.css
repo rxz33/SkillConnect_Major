@@ -1,0 +1,296 @@
+/* --- Global & Container Styles --- */
+.your-profile-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.profile-header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+}
+
+.profile-header-bar h2 {
+    color: #333;
+    font-size: 24px;
+    margin: 0;
+}
+
+.profile-card-edit {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 30px;
+}
+
+/* --- Edit/Save Buttons --- */
+.edit-toggle-btn, .save-changes-btn {
+    padding: 8px 15px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.edit {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.edit:hover {
+    background-color: #e0e0e0;
+}
+
+.cancel {
+    background-color: #f44336;
+    color: white;
+}
+
+.cancel:hover {
+    background-color: #d32f2f;
+}
+
+.save-changes-btn {
+    background-color: #4CAF50; /* Green for Save */
+    color: white;
+    margin-top: 15px;
+}
+
+.save-changes-btn:hover {
+    background-color: #388E3C;
+}
+
+/* --- Image Upload Area --- */
+.profiledisplay-left {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.profiledisplay-main-img {
+    width: 160px;
+    height: 160px;
+    border-radius: 8px;
+    object-fit: cover;
+    display: block;
+}
+
+.image-upload-area {
+    display: block;
+    cursor: pointer;
+}
+
+.image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+    border-radius: 8px;
+}
+
+.image-upload-area:hover .image-overlay {
+    opacity: 1;
+}
+
+.image-overlay img {
+    width: 40px;
+    height: 40px;
+    filter: invert(1);
+    margin-bottom: 5px;
+}
+
+/* --- Edit Mode Styles --- */
+.editable-input-large, .editable-input-small, .editable-textarea, .editable-select, .editable-box-input, .editable-box-textarea, .editable-input-tags {
+    border: 1px dashed #00bcd4; /* Dash border to indicate editable */
+    padding: 5px;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box;
+    width: 100%;
+    margin: 5px 0;
+}
+
+.editable-input-large {
+    font-size: 30px;
+    font-weight: bold;
+    color: #333;
+}
+
+.editable-textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+.editable-box-input {
+    text-align: center;
+    font-weight: bold;
+}
+
+.editable-box-textarea {
+    min-height: 60px;
+    font-size: 12px;
+}
+
+/* --- Inherited Display Styles (Adapted) --- */
+.profiledisplay-header {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.profiledisplay-right {
+    flex-grow: 1;
+}
+
+.profiledisplay-right h1 {
+    font-size: 32px;
+    color: #333;
+    margin: 0 0 5px 0;
+}
+
+.profiledisplay-right-star, .profiledisplay-location {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.star-icon {
+    font-size: 20px;
+    color: #e53935; 
+    margin-right: 2px;
+}
+
+.profiledisplay-location {
+    gap: 8px;
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.profiledisplay-details-content {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 40px;
+    padding-top: 10px;
+}
+
+.section-title-teal {
+    font-size: 18px;
+    color: #00bcd4;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.section-title-black {
+    font-size: 18px;
+    color: #333;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.info-boxes-grid {
+    display: flex;
+    gap: 20px;
+}
+
+.info-box {
+    flex: 1;
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #fafafa;
+    text-align: center;
+}
+
+.box-icon {
+    font-size: 30px;
+    color: #00bcd4;
+    margin-bottom: 10px;
+}
+
+.box-title {
+    margin: 0;
+    font-size: 14px;
+    color: #555;
+}
+
+.box-value {
+    margin: 5px 0 0 0;
+    font-weight: 600;
+    color: #333;
+    line-height: 1.3;
+}
+
+.skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 30px;
+}
+
+.skill-tag {
+    background-color: #e0f7fa;
+    color: #00bcd4;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.tags-list {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #555;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 768px) {
+    .profile-header-bar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .edit-toggle-btn {
+        margin-top: 10px;
+    }
+    .profiledisplay-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    .profiledisplay-right {
+        text-align: center;
+    }
+    .profiledisplay-right-star, .profiledisplay-location {
+        justify-content: center;
+    }
+    .profiledisplay-details-content {
+        grid-template-columns: 1fr;
+    }
+    .info-boxes-grid {
+        flex-direction: column;
+    }
+    .save-changes-btn {
+        width: 100%;
+    }
+}
