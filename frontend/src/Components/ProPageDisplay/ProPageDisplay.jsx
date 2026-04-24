@@ -1,5 +1,6 @@
 import React, { useContext} from 'react';
 import './ProPageDisplay.css';
+import { BASE_URL } from '../../config.js';
 import { FaStar, FaMapMarkerAlt, FaBriefcase, FaCertificate, FaExternalLinkAlt } from 'react-icons/fa'; 
 import { AuthContext } from "../../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -70,7 +71,7 @@ const ProPageDisplay = (props) => {
         const checkHiringStatus = async () => {
             if (currentUser && profile.id) {
                 try {
-                    const response = await fetch(`/check-hiring/${currentUser.uid}/${profile.id}`);
+                    const response = await fetch(`${BASE_URL}/check-hiring/${currentUser.uid}/${profile.id}`);
                     const data = await response.json();
                     setIsHired(data.isHired);
                 } catch (error) {
@@ -86,7 +87,7 @@ const ProPageDisplay = (props) => {
             return;
         }
         try {
-            const response = await fetch('/create-checkout-session', {
+            const response = await fetch(`${BASE_URL}/create-checkout-session`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -145,7 +146,7 @@ const ProPageDisplay = (props) => {
         geocodeAddress();
     }, [profile.location]);
      const remove_profile=async(id)=>{
-    await fetch('/removeprofile',{
+    await fetch(`${BASE_URL}/removeprofile`,{
       method:'POST',
       headers:{
         Accept:'application/json',

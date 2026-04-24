@@ -1,5 +1,6 @@
 import {React,useState,useEffect} from 'react'
 import './Professionals.css'
+import { BASE_URL } from '../../config.js'
 //import candidate_data from '../Assets/data.js'
 import Profile from '../Profile/Profile'
 import { testFirestore } from "../../testFireStore.js";
@@ -9,7 +10,7 @@ const Professionals = () => {
      const [topProfessional,setTopProfessional]=useState([]);
     useEffect(()=>{
         testFirestore();
-        fetch('/topprofessional')
+        fetch(`${BASE_URL}/topprofessional`)
         .then((resp)=>resp.json())
         .then((data)=>setTopProfessional(data))
     },[])

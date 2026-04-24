@@ -1,5 +1,6 @@
 import { React, useState, useContext } from 'react';
 import './ProviderForm.css';
+import { BASE_URL } from '../../config.js';
 import upload_area from '../Assets/upload_area.svg';
 import { AuthContext } from "../../Context/AuthContext";
 
@@ -38,7 +39,7 @@ const ProviderForm = () => {
 
         // 1. Upload Image
         try {
-            const uploadResponse = await fetch('/upload', {
+            const uploadResponse = await fetch(`${BASE_URL}/upload`, {
                 method: 'POST',
                 body: formData,
             });
@@ -52,7 +53,7 @@ const ProviderForm = () => {
         if (responseData.success) {
             profile.image = responseData.image_url;
             try {
-                const addProfileResponse = await fetch('/addprofile', {
+                const addProfileResponse = await fetch(`${BASE_URL}/addprofile`, {
                     method: 'POST',
                     headers: {
                         Accept: 'application/json',

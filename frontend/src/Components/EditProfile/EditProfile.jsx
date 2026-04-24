@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import "./EditProfile.css";
+import { BASE_URL } from "../../config.js";
 import upload_area from "../Assets/upload_area.svg";
 import { useParams, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthContext";
@@ -25,7 +26,7 @@ const EditProfile = () => {
 
   // 🔹 FETCH EXISTING PROFILE
   useEffect(() => {
-    fetch(`/propage/${id}`)
+    fetch(`${BASE_URL}/propage/${id}`)
       .then(res => res.json())
       .then(data => {
         setProfileDetails({
@@ -59,7 +60,7 @@ const EditProfile = () => {
       const formData = new FormData();
       formData.append("profile", image);
 
-      const uploadRes = await fetch("/upload", {
+      const uploadRes = await fetch(`${BASE_URL}/upload`, {
         method: "POST",
         body: formData,
       });
@@ -67,7 +68,7 @@ const EditProfile = () => {
       updatedProfile.image = uploadData.image_url;
     }
 
-    await fetch(`/updateprofile/${id}`, {
+    await fetch(`${BASE_URL}/updateprofile/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

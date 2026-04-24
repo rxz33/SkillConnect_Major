@@ -1,4 +1,5 @@
 import React,{createContext,useState,useEffect} from "react";
+import { BASE_URL } from "../config.js";
 //import candidate_data from "../Components/Assets/data.js";
 
 export const Context=createContext(null);
@@ -7,7 +8,7 @@ const ContextProvider=(props)=>{
     const [all_profile,setAll_Profile]=useState([]);
 
     useEffect(()=>{
-    fetch('/allprofiles')
+    fetch(`${BASE_URL}/allprofiles`)
     .then((response)=>response.json())
     .then((data)=>setAll_Profile(data))
 
