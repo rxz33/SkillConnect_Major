@@ -3,6 +3,18 @@ const Schema=mongoose.Schema;
 const Review=require("./review.js");
 const { v4: uuidv4 } = require("uuid");
 
+const defaultPhoneNumber = function () {
+  const base = 7000000000;
+  const text = String(this?.name || "skillconnect");
+  let hash = 0;
+
+  for (const char of text) {
+    hash = (hash * 31 + char.charCodeAt(0)) % 1000000000;
+  }
+
+  return base + hash;
+};
+
 const profileSchema = new mongoose.Schema({
   id: {
     type: String,
@@ -40,6 +52,7 @@ location:{
 },
 phone:{
   type:Number,
+  default: defaultPhoneNumber,
 },
 
   reviews: [

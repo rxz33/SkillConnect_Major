@@ -41,3 +41,10 @@
   font-size: 18px;
   font-weight: 500;
 }
+
+.shopcategory-empty {
+  margin: 40px 20px 0;
+  text-align: center;
+  color: #666;
+  font-size: 16px;
+}

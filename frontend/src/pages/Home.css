@@ -1,3 +1,16 @@
-.home{
-    padding:0px;
+.home {
+  padding: 0 0 36px;
+  background: #ffffff;
+}
+
+.home-shell {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 12px 18px 0;
+}
+
+@media (max-width: 768px) {
+  .home-shell {
+    padding: 12px 12px 0;
+  }
 }
