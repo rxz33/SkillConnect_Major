@@ -1,6 +1,6 @@
 import { React, useState, useContext } from 'react';
 import './ProviderForm.css';
-import upload_area from '../assets/upload_area.svg';
+import upload_area from '../Assets/upload_area.svg';
 import { AuthContext } from "../../Context/AuthContext";
 
 const ProviderForm = () => {

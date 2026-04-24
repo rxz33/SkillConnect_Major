@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import "./EditProfile.css";
-import upload_area from "../assets/upload_area.svg";
+import upload_area from "../Assets/upload_area.svg";
 import { useParams, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthContext";
 
