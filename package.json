@@ -14,13 +14,13 @@
     "start": "node backend/index.js"
   },
   "dependencies": {
-    "uuidv4": "^6.2.13",
     "cors": "^2.8.5",
-    "dotenv": "^16.4.7",
+    "dotenv": "^16.6.1",
     "express": "^5.2.1",
     "mongoose": "^9.0.1",
     "multer": "^2.0.2",
-    "stripe": "^22.0.2"
+    "stripe": "^22.0.2",
+    "uuidv4": "^6.2.13"
   },
   "devDependencies": {
     "concurrently": "^9.1.2"
