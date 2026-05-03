@@ -368,7 +368,11 @@ app.post("/record-hiring", async (req, res) => {
 // Endpoint to get hired professionals for a user
 app.get("/hired-professionals/:userId", async (req, res) => {
   try {
-    const hired = await Hiring.find({ userId: req.params.userId });
+    const today = new Date().toISOString().split('T')[0];
+    const hired = await Hiring.find({ 
+      userId: req.params.userId,
+      scheduledDate: { $gte: today } 
+    });
     res.json(hired);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -378,7 +382,11 @@ app.get("/hired-professionals/:userId", async (req, res) => {
 // GET bookings for a professional
 app.get("/my-bookings/:professionalId", async (req, res) => {
   try {
-    const bookings = await Hiring.find({ professionalId: req.params.professionalId });
+    const today = new Date().toISOString().split('T')[0];
+    const bookings = await Hiring.find({ 
+      professionalId: req.params.professionalId,
+      scheduledDate: { $gte: today }
+    });
     res.json(bookings);
   } catch (error) {
     res.status(500).json({ error: error.message });
