@@ -190,6 +190,31 @@ app.put("/updateprofile/:id", async (req, res) => {
   res.json({ success: true });
 });
 
+// GET profile by Firebase UID (owner field)
+app.get("/myprofile/:uid", async (req, res) => {
+  try {
+    const profile = await Profile.findOne({ owner: req.params.uid });
+    res.json(profile);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// CREATE or UPDATE profile by Firebase UID
+app.post("/myprofile/upsert", async (req, res) => {
+  const { owner } = req.body;
+  try {
+    const profile = await Profile.findOneAndUpdate(
+      { owner: owner },
+      { ...req.body },
+      { new: true, upsert: true }
+    );
+    res.json({ success: true, profile });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
  
 
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);

@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import './YourProfilePage.css';
 import { FaEdit, FaCheck, FaTimes, FaMapMarkerAlt, FaBriefcase, FaCertificate, FaStar } from 'react-icons/fa';
-import upload_area from '../Assets/upload_area.svg'; // Assuming you have an upload placeholder image
+import upload_area from '../Assets/upload_area.svg'; 
+import { AuthContext } from "../../Context/AuthContext";
+import { BASE_URL } from "../../config";
 
 // Initial Profile Data (This would be fetched from your backend)
 const initialProfileData = {
@@ -19,10 +21,50 @@ const initialProfileData = {
 };
 
 const YourProfilePage = () => {
-    const [profile, setProfile] = useState(initialProfileData);
+    const { currentUser } = useContext(AuthContext);
+    const [profile, setProfile] = useState(null);
     const [editMode, setEditMode] = useState(false);
-    const [tempProfile, setTempProfile] = useState(initialProfileData);
+    const [tempProfile, setTempProfile] = useState(null);
     const [imageFile, setImageFile] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    // Fetch profile data on mount
+    React.useEffect(() => {
+        const fetchProfile = async () => {
+            if (!currentUser) return;
+            try {
+                const response = await fetch(`${BASE_URL}/myprofile/${currentUser.uid}`);
+                const data = await response.json();
+                if (data) {
+                    setProfile(data);
+                    setTempProfile(data);
+                } else {
+                    // Fallback for new providers
+                    const emptyProfile = {
+                        name: currentUser.displayName || "New Provider",
+                        category: "Electrician",
+                        description: "",
+                        skills: "",
+                        experience: 0,
+                        certificate: "",
+                        location: "Greater Noida, India",
+                        rating: 5,
+                        reviews: 0,
+                        tags: "",
+                        owner: currentUser.uid,
+                        image: currentUser.photoURL || "https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=400"
+                    };
+                    setProfile(emptyProfile);
+                    setTempProfile(emptyProfile);
+                }
+            } catch (err) {
+                console.error("Failed to fetch profile", err);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchProfile();
+    }, [currentUser]);
 
     // Handler for text input changes
     const changeHandler = (e) => {
@@ -34,32 +76,62 @@ const YourProfilePage = () => {
         const file = e.target.files[0];
         if (file) {
             setImageFile(file);
-            // Create a temporary URL for preview
             setTempProfile({ ...tempProfile, image: URL.createObjectURL(file) });
         }
     };
 
     // Function to handle saving changes
-    const handleSave = () => {
-        // --- 1. HANDLE IMAGE UPLOAD (if imageFile exists) ---
-        // This is where you would call your backend's image upload endpoint (e.g., /upload)
+    const handleSave = async () => {
+        setLoading(true);
+        try {
+            let imageUrl = tempProfile.image;
 
-        // --- 2. HANDLE PROFILE DATA UPDATE ---
-        // This is where you would call your backend's update endpoint (e.g., /updateprofile)
-        
-        // For demonstration, update the main state with temp state
-        setProfile(tempProfile);
-        setImageFile(null); // Clear file after save
-        setEditMode(false);
-        alert("Profile Updated Successfully!");
+            // If a new image was selected, upload it first
+            if (imageFile) {
+                const formData = new FormData();
+                formData.append('profile', imageFile);
+                const uploadRes = await fetch(`${BASE_URL}/upload`, {
+                    method: 'POST',
+                    body: formData,
+                });
+                const uploadData = await uploadRes.json();
+                if (uploadData.success) {
+                    imageUrl = uploadData.image_url;
+                }
+            }
+
+            const updatedProfile = { ...tempProfile, image: imageUrl, owner: currentUser.uid };
+            
+            const response = await fetch(`${BASE_URL}/myprofile/upsert`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(updatedProfile)
+            });
+            const data = await response.json();
+            
+            if (data.success) {
+                setProfile(data.profile);
+                setEditMode(false);
+                alert("Profile Updated Successfully!");
+                // Force reload of other components that might use this data (like Navbar)
+                window.location.reload(); 
+            }
+        } catch (err) {
+            console.error("Update failed", err);
+            alert("Update failed. Please try again.");
+        } finally {
+            setLoading(false);
+        }
     };
 
-    // Function to handle canceling edits
     const handleCancel = () => {
-        setTempProfile(profile); // Revert back to the last saved state
-        setImageFile(null); // Clear any pending file
+        setTempProfile(profile);
+        setImageFile(null);
         setEditMode(false);
     };
+
+    if (loading) return <div className="loading-spinner">Loading Profile...</div>;
+    if (!profile) return <div className="error">Please login to view your profile.</div>;
 
     return (
         <div className='your-profile-container'>
@@ -234,16 +306,45 @@ const YourProfilePage = () => {
                         <section className='service-details-section'>
                             <h3 className='section-title-black'>Category: 
                                 {editMode ? (
-                                    <select 
-                                        name="category" 
-                                        value={tempProfile.category} 
-                                        onChange={changeHandler}
-                                        className='editable-select'
-                                    >
-                                        <option value="Electrician">Electrician</option>
-                                        <option value="Plumber">Plumber</option>
-                                        {/* Add other categories here */}
-                                    </select>
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '10px' }}>
+                                        <select 
+                                            name="category" 
+                                            value={['Electrician', 'Plumber', 'AC Repair', 'Pest Control', 'Painter', 'Women Salon', 'Men Salon', 'Water Purifier', 'Carpenter'].includes(tempProfile.category) ? tempProfile.category : 'Other'} 
+                                            onChange={(e) => {
+                                                if (e.target.value !== 'Other') {
+                                                    setTempProfile({ ...tempProfile, category: e.target.value });
+                                                } else {
+                                                    setTempProfile({ ...tempProfile, category: '' }); // Clear for custom entry
+                                                }
+                                            }}
+                                            className='editable-select'
+                                        >
+                                            <option value="Electrician">Electrician</option>
+                                            <option value="Plumber">Plumber</option>
+                                            <option value="AC Repair">AC Repair</option>
+                                            <option value="Pest Control">Pest Control</option>
+                                            <option value="Painter">Painter</option>
+                                            <option value="Women Salon">Women Salon</option>
+                                            <option value="Men Salon">Men Salon</option>
+                                            <option value="Water Purifier">Water Purifier</option>
+                                            <option value="Carpenter">Carpenter</option>
+                                            <option value="Other">Other (Custom)</option>
+                                        </select>
+                                        
+                                        {/* Show text input if category is not in the list or is empty */}
+                                        {(!['Electrician', 'Plumber', 'AC Repair', 'Pest Control', 'Painter', 'Women Salon', 'Men Salon', 'Water Purifier', 'Carpenter'].includes(tempProfile.category)) && (
+                                            <input 
+                                                type="text" 
+                                                name="category"
+                                                placeholder="Enter your specific category"
+                                                value={tempProfile.category} 
+                                                onChange={changeHandler}
+                                                className='editable-input-small'
+                                                style={{ width: '100%' }}
+                                                autoFocus
+                                            />
+                                        )}
+                                    </div>
                                 ) : (
                                     <span> {profile.category}</span>
                                 )}

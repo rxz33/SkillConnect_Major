@@ -14,6 +14,8 @@ const SearchResults = lazy(() => import('./pages/SearchResults'));
 const Success = lazy(() => import('./pages/Success'));
 const Cancel = lazy(() => import('./pages/Cancel'));
 const HiredProfessionals = lazy(() => import('./pages/HiredProfessionals'));
+const Membership = lazy(() => import('./pages/Membership'));
+const AccountSettings = lazy(() => import('./pages/AccountSettings'));
 
 // Components
 import ProviderForm from './Components/ProviderForm/ProviderForm';
@@ -77,6 +79,8 @@ function AnimatedRoutes() {
             <Route path="/success" element={<Success />} />
             <Route path="/cancel" element={<Cancel />} />
             <Route path="/hired" element={<HiredProfessionals />} />
+            <Route path="/membership" element={<Membership />} />
+            <Route path="/settings" element={<AccountSettings />} />
           </Routes>
         </motion.div>
       </Suspense>

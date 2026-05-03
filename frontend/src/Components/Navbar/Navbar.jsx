@@ -9,6 +9,7 @@ const Navbar = () => {
 
   const auth = getAuth();
   const [currUser, setCurrUser] = useState(null);
+  const [userProfile, setUserProfile] = useState(null);
   const [openSidebar, setOpenSidebar] = useState(false);
   const [search, setSearch] = useState("");
 const sidebarRef = useRef(null);
@@ -29,8 +30,20 @@ const navigate = useNavigate();
   }
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setCurrUser(user); 
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      setCurrUser(user);
+      if (user) {
+        try {
+          const { BASE_URL } = await import('../../config');
+          const response = await fetch(`${BASE_URL}/myprofile/${user.uid}`);
+          const data = await response.json();
+          if (data && !data.error) {
+            setUserProfile(data);
+          }
+        } catch (err) {
+          console.error("Navbar profile fetch failed", err);
+        }
+      }
     });
 
     return () => unsubscribe();
@@ -110,8 +123,20 @@ const navigate = useNavigate();
                   {/* Top User Info */}
                   <div className="profile-header">
                     <span className="material-symbols-outlined profile-avatar">account_circle</span>
-                    <h4>{currUser.displayName || "User Name"}</h4>
-                    <p>Profession</p>
+                    <h4 style={{ display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'center' }}>
+                        {userProfile ? userProfile.name : (currUser.displayName || "User Name")}
+                        <span style={{ 
+                            fontSize: '10px', 
+                            padding: '2px 6px', 
+                            borderRadius: '4px', 
+                            background: userProfile?.membership === 'Pro' ? '#f59e0b' : '#e2e8f0',
+                            color: userProfile?.membership === 'Pro' ? '#fff' : '#64748b',
+                            fontWeight: 'bold'
+                        }}>
+                            {userProfile?.membership === 'Pro' ? 'PRO' : 'BASIC'}
+                        </span>
+                    </h4>
+                    <p>{userProfile ? userProfile.category : "Member"}</p>
                   </div>
 
                   <hr />
