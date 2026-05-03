@@ -8,10 +8,36 @@ const path=require("path");
 const cors=require("cors");
 const Profile=require("./models/profile.js");
 const Hiring = require("./models/hiring.js");
+const https = require("https");
+
+// Keep-Alive logic for Render (pings every 10 minutes)
+const RENDER_URL = process.env.RENDER_EXTERNAL_URL || process.env.BACKEND_URL;
+if (RENDER_URL) {
+  setInterval(() => {
+    https.get(RENDER_URL, (res) => {
+      // Ping successful
+    }).on('error', (err) => {
+      // Error ignored
+    });
+  }, 10 * 60 * 1000); // 10 minutes
+}
 
 app.use(express.json());
+const allowedOrigins = [
+  process.env.FRONTEND_URL,
+  'http://localhost:5173',
+  'http://localhost:5174', // Just in case
+  'https://skillconnect-frontend-static.onrender.com'
+].filter(Boolean);
+
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true
 }));
 
@@ -87,11 +113,17 @@ app.get('/allprofiles',async(req,res)=>{
 })
 */
 //creating endpoint for the popular in women Category
-app.get('/topprofessional',async(req,res)=>{
-    let profiles=await Profile.find({});
-    let top_professional=profiles.slice(0,9);
+// Optimized endpoint for homepage (projection reduces payload size)
+app.get('/topprofessional', async (req, res) => {
+  try {
+    const top_professional = await Profile.find({})
+      .select('name image category location rating skills experience certificate phone owner price')
+      .limit(9);
     res.send(top_professional);
-})
+  } catch (error) {
+    res.status(500).send({ message: "Error fetching professionals" });
+  }
+});
 
 app.get("/search", async (req, res) => {
   const query = req.query.query;
@@ -114,10 +146,42 @@ app.get("/search", async (req, res) => {
 
 
 
-// get listing
+// get listing - handles both MongoDB _id and custom UUID id
 app.get("/propage/:id", async (req, res) => {
-  const profile = await Profile.findById(req.params.id);
-  res.json(profile);
+  try {
+    const { id } = req.params;
+    let profile = null;
+    
+    // Try finding by MongoDB _id first if it's a valid ObjectId
+    if (mongoose.Types.ObjectId.isValid(id)) {
+      profile = await Profile.findById(id);
+    }
+    
+    // If not found, try finding by custom 'id' field (UUID)
+    if (!profile) {
+      profile = await Profile.findOne({ id: id });
+    }
+    
+    if (!profile) {
+      return res.status(404).json({ message: "Profile not found" });
+    }
+    
+    res.json(profile);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Category endpoint - case-insensitive
+app.get("/profiles/category/:category", async (req, res) => {
+  try {
+    const profiles = await Profile.find({ 
+      category: { $regex: new RegExp(`^${req.params.category}$`, 'i') } 
+    });
+    res.json(profiles);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
 // update listing
@@ -133,6 +197,8 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 // Payment Session Creation
 app.post("/create-checkout-session", async (req, res) => {
   const { profileId, name, price, userId } = req.body;
+  // Use the origin from the request to support both local and production
+  const origin = req.headers.origin || process.env.FRONTEND_URL || 'http://localhost:5173';
 
   try {
     const session = await stripe.checkout.sessions.create({
@@ -158,8 +224,8 @@ app.post("/create-checkout-session", async (req, res) => {
         },
       ],
       mode: "payment",
-      success_url: `${process.env.FRONTEND_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.FRONTEND_URL}/cancel`,
+      success_url: `${origin}/#/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${origin}/#/cancel`,
     });
 
     res.json({ id: session.id, url: session.url });

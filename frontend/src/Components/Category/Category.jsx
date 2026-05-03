@@ -4,11 +4,9 @@ import { Link } from "react-router-dom";
 
 const Category = () => {
   return (
-    <div>
-      <h3>What are you looking for?</h3>
-
+    <div className="category-section">
+      <h2 className="category-title">What are you looking for?</h2>
       <div id="filters">
-
         <Link to="/women" className="filter">
           <div>
             <img src="https://res.cloudinary.com/urbanclap/image/upload/t_high_res_category/w_56,dpr_2,fl_progressive:steep,q_auto:low,f_auto,c_limit/images/supply/customer-app-supply/1678864013225-bfc1de.jpeg" />
@@ -30,7 +28,7 @@ const Category = () => {
           <p>Ac & Appliance Repair</p>
         </Link>
 
-        <Link to="/Home Cleaning" className="filter">
+        <Link to="/pestcontrol" className="filter">
           <div>
             <img src="https://res.cloudinary.com/urbanclap/image/upload/t_high_res_category/w_56,dpr_2,fl_progressive:steep,q_auto:low,f_auto,c_limit/images/growth/luminosity/1699869110346-61ab83.jpeg" />
           </div>
@@ -44,7 +42,7 @@ const Category = () => {
           <p>Electrician, Plumber & Carpenter</p>
         </Link>
 
-        <Link to="/plumber" className="filter">
+        <Link to="/waterpurifier" className="filter">
           <div>
             <img src="https://res.cloudinary.com/urbanclap/image/upload/t_high_res_category/w_56,dpr_2,fl_progressive:steep,q_auto:low,f_auto,c_limit/images/supply/customer-app-supply/1754919084321-eda462.jpeg" />
           </div>

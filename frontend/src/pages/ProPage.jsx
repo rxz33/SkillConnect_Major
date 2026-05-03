@@ -1,17 +1,23 @@
-import React, { useContext } from 'react';
-import {Context } from '../Context/Context';
+import React from 'react';
 import { useParams } from 'react-router-dom';
+import { BASE_URL } from '../config';
 import Breadcrums from '../Components/Breadcrums/Breadcrums';
 import ProPageDisplay from '../Components/ProPageDisplay/ProPageDisplay';
 import DescriptionBox from '../Components/DescriptionBox/DescriptionBox';
 import RelatedServices from '../Components/RelatedServices/RelatedServices';
+
 const ProPage = () => {
-  const {all_profile} = useContext(Context);
   const { propageId } = useParams();
-  const profile = all_profile.find((e) => e.id === propageId);
+  const [profile, setProfile] = React.useState(null);
+
+  React.useEffect(() => {
+    fetch(`${BASE_URL}/propage/${propageId}`)
+      .then((res) => res.json())
+      .then((data) => setProfile(data));
+  }, [propageId]);
 
   if (!profile) {
-    return <div>Loading profile...</div>;
+    return <div style={{ textAlign: 'center', padding: '100px' }}>Loading profile...</div>;
   }
 
   return (

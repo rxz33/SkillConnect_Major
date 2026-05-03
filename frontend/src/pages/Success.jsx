@@ -21,12 +21,12 @@ const Success = () => {
             if (sessionId) {
                 try {
                     // 1. Get session details
-                    const sessionRes = await fetch(`/retrieve-session/${sessionId}`);
+                    const sessionRes = await fetch(`${BASE_URL}/retrieve-session/${sessionId}`);
                     const session = await sessionRes.json();
                     
                     if (session && session.metadata) {
                         // 2. Record hiring
-                        await fetch(`/record-hiring`, {
+                        await fetch(`${BASE_URL}/record-hiring`, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({

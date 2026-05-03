@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../Context/AuthContext';
 import { Link } from 'react-router-dom';
 import { FaUserTie, FaCalendarAlt, FaDollarSign } from 'react-icons/fa';
+import { BASE_URL } from '../config';
 
 const HiredProfessionals = () => {
     const { currentUser } = useContext(AuthContext);
@@ -12,13 +13,15 @@ const HiredProfessionals = () => {
         const fetchHired = async () => {
             if (currentUser) {
                 try {
-                    const response = await fetch(`/hired-professionals/${currentUser.uid}`);
+                    const response = await fetch(`${BASE_URL}/hired-professionals/${currentUser.uid}`);
                     const data = await response.json();
                     setHiredList(data);
                 } catch (error) {
                 } finally {
                     setLoading(false);
                 }
+            } else {
+                setLoading(false);
             }
         };
         fetchHired();
